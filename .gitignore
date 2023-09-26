@@ -1,0 +1,25 @@
+# Compiled Object files
+
+
+
+x64
+
+*.opensdf
+
+*.sdf
+
+*.sln
+*.vcxproj
+
+*.filters
+*.exe
+*.ilk
+
+*.log
+*.pdb
+*.obj
+*.idb
+
+
+
+*.tlog
