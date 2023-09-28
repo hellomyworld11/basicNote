@@ -1,10 +1,11 @@
 #include <iostream>
 using namespace std;
 #include "nullptr_.h"
-
+#include "template_test.h"
 int main() {
 
-	testnullptr();
+	//testnullptr();
+	template_spec();
 	getchar();
 	return 0;
 }
