@@ -23,3 +23,6 @@ x64
 
 
 *.tlog
+
+Debug
+*.user
