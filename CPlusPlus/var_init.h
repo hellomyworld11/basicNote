@@ -63,8 +63,36 @@ auto print_type_info(const T& t) {
         return t + 0.001;
     }
 }
-int main() {
+void test_print_type_infot() {
     std::cout << print_type_info(5) << std::endl;
     std::cout << print_type_info(3.14) << std::endl;
 }
+
+//5. 委托构造  继承构造
+#include <iostream>
+class Base {
+public:
+    int value1;
+    int value2;
+    Base() {
+        value1 = 1;
+    }
+    Base(int value) : Base() { // 委托 Base() 构造函数
+        value2 = value;
+    }
+};
+class Subclass : public Base {
+public:
+    using Base::Base; // 继承构造
+};
+void test_BaseCon() {
+    Base b(2);
+    std::cout << b.value1 << std::endl;
+    std::cout << b.value2 << std::endl;
+
+    Subclass s(3);
+    std::cout << s.value1 << std::endl;
+    std::cout << s.value2 << std::endl;
+}
+
 
