@@ -1,11 +1,14 @@
 #include "Factory.h"
+#include "Product.h"
 #include <iostream>
 
 int main(int argc, char **argv)
 {
-	Factory *factory = new ConcreteFactory();
-	Product *p = factory->CreateProduct();
+	Product * prod = Factory::CreateProduct("A");
 
+	prod->Use();
+
+	delete prod;
 	getchar();
 	return 0;
 }
