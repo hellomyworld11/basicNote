@@ -1,9 +1,3 @@
-///////////////////////////////////////////////////////////
-//  RefinedAbstraction.cpp
-//  Implementation of the Class RefinedAbstraction
-//  Created on:      03-十月-2014 18:12:43
-//  Original author: colin
-///////////////////////////////////////////////////////////
 
 #include "RefinedAbstraction.h"
 #include <iostream>
