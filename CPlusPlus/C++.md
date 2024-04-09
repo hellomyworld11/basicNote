@@ -119,3 +119,33 @@ decltype()  类型检查
 ###　GoogleC++规范
 
 ![](C++.assets/20140713220242000.jpg)
+
+### Modern CPP Programming
+
+#### 一.类型系统
+
+```
+C++类型分为 基础类型和混合类型。
+基础类型： 
+ 1. 浮点型 整型
+ 2. void
+ 3. nullptr_t
+ 混合类型:
+ 1.引用
+ 2.枚举
+ 3. class struct union
+ ...
+ 图示如下
+```
+
+![image-20240409171857365](C++.assets/image-20240409171857365.png)
+
+auto 关键字 可以被编译器翻译 
+
+```
+auto a = 1 + 2;  // auto 被推断为int
+auto 可以代替复杂的类型声明。
+for(auto x : arr)
+	...
+```
+
