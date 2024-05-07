@@ -110,6 +110,124 @@ decltype()  类型检查
 
 ```
 
+####  实现通过类名new对象 （反射）
+
+```
+一般不同类型的对象 需要用很多if else 来 判断,导致每次有新类型都要该这部分代码。
+解决方法:
+	用 类名 和 构造类的函数 的映射关系，来替换if else ，每次只需要注册类，new 对象的时候传入类名即可。
+	
+	参考：https://www.cnblogs.com/onStateChange/p/6590543.html
+	https://blog.csdn.net/xiaoqiang321/article/details/128698461
+```
+
+
+
+ObjectFactory.h
+
+```
+#ifndef __OBJECTFACTORY_H__
+#define __OBJECTFACTORY_H__
+ 
+#include <map>
+#include <string>
+#include <functional>
+ 
+ //Object为基类， 不同子类继承于基类。
+class Object
+{
+public:
+    virtual std::string GetClassName() const = 0;
+};
+ 
+class ObjectFactory
+{
+public:
+    static ObjectFactory& GetInstance();
+ 
+    using ObjCreator = std::function<Object*(void)>;
+    int RegisterObj(const std::string& className, ObjCreator objCreator);
+ 
+    Object* CreateObj(const std::string& className);
+ 
+private:
+    ObjectFactory();
+    ~ObjectFactory();
+    ObjectFactory(const ObjectFactory&) = delete;
+ 
+    std::map<std::string, ObjCreator> creatorMap_;
+};
+
+#define REGISTERCLASS(className) \
+class className##Helper { \
+public: \
+    className##Helper() \
+    { \
+        ObjectFactory::GetInstance()->RegisterObject(#className, []() \
+        { \
+            auto* obj = new className(); \
+            return obj; \
+        }); \
+    } \
+}; \
+className##PanelHelper g_##className##_panelhelper;// 初始化一个helper的全局变量，执行构造函数中的RegisterObject执行。
+
+
+#endif
+```
+
+ObjectFactory.cpp
+
+```
+#include "ObjectFactory.h"
+using namespace std;
+ 
+ObjectFactory& ObjectFactory::GetInstance()
+{
+    static ObjectFactory instance_;
+    return instance_;
+}
+ 
+int ObjectFactory::RegisterObj(const std::string& className, ObjCreator objCreator)
+{
+    creatorMap_.insert(make_pair(className, objCreator));
+    return 0;
+}
+ 
+Object* ObjectFactory::CreateObj(const std::string& className)
+{
+    auto it = creatorMap_.find(className);
+    if(it == creatorMap_.end())
+    {
+        return nullptr;
+    }
+    return it->second();
+}
+ 
+ObjectFactory::ObjectFactory()
+{
+}
+ 
+ObjectFactory::~ObjectFactory()
+{
+}
+```
+
+测试
+
+```
+ REGISTERPANELCLASS(XXX)  //XXX为类名
+ auto pObj = (Object*)ObjectFactory::GetInstance()->CreateObject("XXX");
+```
+
+
+
+
+
+
+
+
+
 ### Effective C++
 
 + 尽量以  const 、 enum 、 inline 替换 define
