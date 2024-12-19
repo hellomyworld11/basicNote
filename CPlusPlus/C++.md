@@ -130,6 +130,48 @@ decltype()  类型检查
 	https://blog.csdn.net/xiaoqiang321/article/details/128698461
 ```
 
+#### 泛型模板编程
+
+非类型模板参数 ： 使用常量值 用于静态数组的大小、指针、引用等
+
+```c++
+#include <iostream>
+using namespace std;
+
+template<class T, size_t N> // N 是非类型模板参数
+class StaticArray {
+public:
+	size_t arraysize() { return N; }
+private:
+	T _array[N]; // 使用非类型模板参数指定静态数组的大小
+};
+
+int main() {
+    StaticArray<int, 10> a1; // 定义一个大小为10的静态数组
+    cout << a1.arraysize() << endl; // 输出 10
+
+    StaticArray<int, 100> a2; // 定义一个大小为100的静态数组
+    cout << a2.arraysize() << endl; // 输出 100
+
+    return 0;
+}
+```
+
+非类型模板参数基于原始数组的使用
+
+```c++
+template <class T, size_t N>    
+void array_init(T (&parm)[N]){   //这里parm是代表数组的引用   T &parm[n] = array; 
+    //...  
+} 
+
+//数组的引用
+int n3[3] = {2, 4, 6};
+int (&rn3)[3] = n3;
+```
+
+
+
 
 
 ObjectFactory.h
