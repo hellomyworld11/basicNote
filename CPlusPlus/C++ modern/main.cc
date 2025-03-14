@@ -8,7 +8,8 @@ using namespace std;
 int main() {
 
 	//testnullptr();
-	test_thread();
+	//test_thread();
+	testShared_ptr();
 	getchar();
 	return 0;
 }

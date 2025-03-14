@@ -56,6 +56,7 @@ int testUnique_ptr()
 {
 	std::unique_ptr<int> pointer = std::make_unique<int>(10); // make_unique 从 C++14 引入
 	//std::unique_ptr<int> pointer2 = pointer; // 非法
+	return 0;
 }
 
 //4.std::weak_ptr
@@ -85,4 +86,5 @@ int testWeak_ptr()
 		observe();
 	}
 	observe();
+	return 0;
 }
