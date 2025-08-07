@@ -11,10 +11,27 @@
 
 ****
 
-被弃用的特性
-```C++
-	
+### 被弃用的特性
 
+```C++
+不再允许字符串字面值常量赋值给一个 char *。如果需要用字符串字面值常量赋值和初始化一个 char *，应该使用 const char * 或者 auto。
+
+char *str = "hello world!"; // 将出现弃用警告
+C++98 异常说明、 unexpected_handler、set_unexpected() 等相关特性被弃用，应该使用 noexcept。
+
+auto_ptr 被弃用，应使用 unique_ptr。
+
+register 关键字被弃用，可以使用但不再具备任何实际含义。
+
+bool 类型的 ++ 操作被弃用。
+
+如果一个类有析构函数，为其生成拷贝构造函数和拷贝赋值运算符的特性被弃用了。
+
+C 语言风格的类型转换被弃用（即在变量前使用 (convert_type)），应该使用 static_cast、reinterpret_cast、const_cast 来进行类型转换。
+
+特别地，在最新的 C++17 标准中弃用了一些可以使用的 C 标准库，例如 <ccomplex>、<cstdalign>、<cstdbool> 与 <ctgmath> 等
+    
+std::bind 和 std::function、export 被弃用
 ```
 
 
@@ -318,3 +335,12 @@ for(auto x : arr)
 	...
 ```
 
+### C++11
+
++ nullptr关键字 专门用来区分空指针、`0`  替代NULL
+
+```
+nullptr关键字
+```
+
++ std::Move()
