@@ -209,6 +209,28 @@ int n3[3] = {2, 4, 6};
 int (&rn3)[3] = n3;
 ```
 
+可变参数模板
+
+```c++
+template <class T>
+void PrintArg(T t) {
+cout << t << " ";
+}
+
+//逗号表达式展开
+template <class... Args>
+void ShowList(Args... args) {
+int arr[] = { (PrintArg(args), 0)... };
+cout << endl;
+}
+
+int main() {
+ShowList(1, 1.1, 'A', std::string("sort"));
+return 0;
+}
+
+```
+
 
 
 
