@@ -388,3 +388,11 @@ nullptr关键字
 ```
 
 + std::Move()
+
+项目参考
+
+```
+内存池：
+https://blog.csdn.net/jcjc918/article/details/44997089
+```
+
