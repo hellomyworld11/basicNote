@@ -451,7 +451,7 @@ move() 可以左值转右值， 右值转左值
 
 ## 模板 泛型
 
-​	模板被调用时才会生成实例代码，需要找到函数定义才能生成，所以要放头文件中。
+​	模板被调用时才会生成实例代码，需要找到函数定义才能生成，所以函数定义要放头文件中。
 
 1. 类型函数模板和非类型函数模板
 
@@ -484,6 +484,108 @@ move() 可以左值转右值， 右值转左值
    }
    ```
 
+   template作用
    
+   ```
+   1.表明后面跟的是一个类型
+   	比如函数模板或者类模板
+   2.typename 类名<T>::自定义类型 表明::后是一个类型。  因为::后的东西可能被编译器理解为类型或者静态变量。
+   
+   template A<float>
+   extern template A<float>  防止重复实例化
+   ```
+   
+   using定义模板别名
+   
+   ```c++
+   template<typename T>
+   using map_s_t = map<string, T>;
+   ```
+   
+   特化
+   
+   ```c++
+   特化就是对于特别的类型没法用模板表示，需要单独处理，
+   
+   类模板特化
+   template<typename T1, typename T2>
+   class A
+   {
+       A()
+       {
+           cout << "A 泛化构造函数" << endl;
+       }
+       void test()
+       {
+            cout << "A 泛化函数" << endl;
+       }
+   }
+   
+   template<>
+   class A<int , int>
+   {
+        A()
+       {
+           cout << "A<int , int> 特化构造函数" << endl;
+       }
+       void test()
+       {
+            cout << "A<int , int> 特化函数" << endl;
+       }
+   }
+   
+   类模板偏特化，指的是 特化部分参数模板，或者范围上特化参数模板
+   
+   函数模板不支持特化
+   ```
+   
+   可变参数模板
+   
+   ```C++
+   代表T是可变参数，参数个数，和每个参数的类型不固定。
+   template<typename... T>
+   void fun(T... args)
+   {
+       cout << sizeof(args) << endl; //输出参数个数
+       cout << sizeof(T) << endl;  //输出参数个数
+   }
+   ```
+   
+   可变参类模板
+   
+   ```
+   
+   
+
+## 智能指针
+
+```c++
+delete 可以delete空指针  但是不能delete 没有new出来的指针。
+
+shared_ptr  强引用计数
+weak_ptr	辅助share_ptr  弱引用计数
+unique_ptr  独占  只能移动不可复制	但可以函数范围一个局部unique_ptr	
+
+使用:
+	shared_ptr<int> p(new int(1));  //必须直接初始化。
+	shared_ptr<int> p = new int(1); //错误。 智能指针 explicit 
+	shared_ptr<int> p = make_shared<int>(1); //最安全高效
+
+	shared_ptr 可以自定义删除器。
+       智能指针比裸指针尺寸大1倍。
+        
+      用移动move 可以避免计数+1
+        
+      release() 是放弃对指针的控制权，并没有释放内存。 
+        而reset()释放内存并置空
+```
+
+## 多线程
+
+
+
+
+
+
 
 # 模板，泛型 元编程
