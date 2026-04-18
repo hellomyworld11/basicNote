@@ -556,6 +556,7 @@ move() 可以左值转右值， 右值转左值
    ```
    
    
+   ```
 
 ## 智能指针
 
@@ -581,6 +582,51 @@ unique_ptr  独占  只能移动不可复制	但可以函数范围一个局部un
 ```
 
 ## 多线程
+
+```c++
+lock_guard 出了作用域自动解锁  但是不提供lock和unlock函数
+std::unique_lock 和lock_guard类似，但是可以调用lock和unlock
+
+//通过类成员函数方式创建线程
+std::thread tOut(&A::Pop, &a);
+    
+static A* GetInstance()
+{
+    if(m_instance == NULL)  //提升效率，不用每一次都加锁
+    {
+           	std::unique_lock<std::mutex> mymutex(resource_mutex); //同步
+   			if(m_instance == NULL)
+    		{
+    	 	   m_instance = new A();
+			}
+   			 return m_instance;
+	}
+ 
+}
+
+
+async 用来启动异步任务  自动执行线程
+future 获取异步任务返回的结果，可能当时获取不到要等线程执行完才能获取。   通过get()阻塞等待获取结果
+packaged_task  包装可调用对象  可以获取future 
+promise
+    
+原子操作 std::atomic<int> gcount = 0   不会被打断。执行速度比互斥量快。 只能用于简单的运算符语句。
+```
+
+内存管理
+
+```
+	new 关键字流程:
+		operator new()  函数
+		  malloc()  分配内存
+		  	调用构造函数
+	delete 流程
+		调用析构函数
+		operator delete() 函数
+			free()
+			
+	可以重载  new delete  
+```
 
 
 
