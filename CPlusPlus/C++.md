@@ -615,7 +615,7 @@ promise
 
 内存管理
 
-```
+```c++
 	new 关键字流程:
 		operator new()  函数
 		  malloc()  分配内存
@@ -626,6 +626,10 @@ promise
 			free()
 			
 	可以重载  new delete  
+	
+	定位new  可以在分配的内存中初始化一个对象，调用构造函数
+	格式:
+		new(地址) 类类型(参数)
 ```
 
 
