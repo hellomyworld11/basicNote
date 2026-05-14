@@ -704,3 +704,30 @@ mutable 修改lambda表示可以修改外部值。 不管捕获是哪种类型�
 
 
 # 模板，泛型 元编程
+
+##　基本概念
+
+```
+template<typename T>
+
+编译时根据调用的类型进行实例化。
+
+全特化: 手动实例化一个函数模板，所有模板参数都用具体类型替代。 如下：
+template<> 
+void fun<int>(int x);
+
+偏特化： 只实例化部分类型。 或者类型范围减小。
+
+默认参数类型
+template<typename T=int>
+
+非类型参数
+template<typename T, int val=10>
+auto add(T v1)
+{
+	return v1 + val;
+}
+
+typename 后面永远指代一个类型
+```
+
